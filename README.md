@@ -4,6 +4,13 @@ A lightweight utility for serving local **Zarr** volumes into [Neuroglancer Demo
 This tool spins up a **CORS-enabled HTTP server** that makes your `.zarr` datasets accessible to Neuroglancer, allowing quick visualization directly in your browser.
 
 ---
+# Contributors
+
+* Gabriele Amorosino
+* Taylor Grafft
+* Vasilis Karlaftis 
+* Yael Balbastre
+---
 
 ## Features
 
