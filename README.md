@@ -23,7 +23,7 @@ This tool spins up a **CORS-enabled HTTP server** that makes your `.zarr` datase
 
 ---
 
-## 🚀 Installation
+## Installation
 
 Requires **Python 3.8+**.
 Clone this repository:
@@ -37,7 +37,7 @@ No additional packages are needed.
 
 ---
 
-## 📖 Usage
+## Usage
 
 ```bash
 python ng_zarr_demo.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--name mylayer]
@@ -54,7 +54,7 @@ python ng_zarr_demo.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--
 
 ---
 
-## 🔍 Example
+## Example
 
 ```bash
 python ng_zarr_demo.py ./data/brain_volume.zarr --port 8080 --name "BrainVolume"
