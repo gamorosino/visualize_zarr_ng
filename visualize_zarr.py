@@ -53,7 +53,7 @@ def stop_all_servers():
         s.server_close()
     running_servers.clear()
 
-def build_state(file_http_url, layer_name, file_type=['zarr']):
+def build_state(file_http_url, layer_name, file_type='zarr'):
     """
     Build a Neuroglancer state with one or more layers.
     Neuroglancer infers shape/chunks from Zarr metadata; voxel size defaults to 1x1x1.
@@ -66,6 +66,12 @@ def build_state(file_http_url, layer_name, file_type=['zarr']):
     Returns:
         dict: A Neuroglancer state dictionary.
     """
+    if not isinstance(file_http_url, list):
+        file_http_url = [file_http_url]
+    if not isinstance(layer_name, list):
+        layer_name = [layer_name]
+    if not isinstance(file_type, list):
+        file_type = [file_type]
 
     if len(file_type) < len(file_http_url):
         if len(file_type) == 1:
@@ -87,18 +93,23 @@ def build_state(file_http_url, layer_name, file_type=['zarr']):
 
 def main():
     ap = argparse.ArgumentParser(description="Open a local Zarr store in Neuroglancer Demo.")
-    ap.add_argument("file_path", nargs='+', help="Path to your .zarr directory")
+    ap.add_argument("file_path", nargs='+', help="Path to your .zarr directories")
     ap.add_argument("--host", default="127.0.0.1", help="Host to bind local HTTP server (default: 127.0.0.1)")
     ap.add_argument("--port", type=int, default=5000, help="Port for local HTTP server (default: 5000)")
-    ap.add_argument("--name", nargs='*', default=None, help="Layer name (default: basename of .zarr)")
+    ap.add_argument("--name", nargs='*', default=None, help="Layer names (default: basename of input file)")
     ap.add_argument("--file_type", default=None, help="file type (default: zarr)")
     ap.add_argument("--no-open", action="store_true", help="Do not auto-open the browser")
     args = ap.parse_args()
 
     file_paths = [os.path.abspath(fp.rstrip("/")) for fp in args.file_path]
     for fp in file_paths:
-        if not os.path.isdir(fp) or not fp.endswith(".zarr"):
-            raise SystemExit(f"Please provide paths to Zarr directory(ies) ending in .zarr: {fp}")
+        if args.file_type is None or args.file_type == 'zarr':
+            if not os.path.isdir(fp) or not fp.endswith(".zarr"):
+                raise SystemExit(f"Please provide paths to Zarr directories ending in .zarr: {fp}")
+        elif args.file_type == 'nii.gz':
+            if os.path.isdir(fp) or not fp.endswith(".nii.gz"):
+                raise SystemExit(f"Please provide paths to NIfTI files ending in .nii.gz: {fp}")
+            
 
     # Create symlinks of all input files into default root_dir
     root_dir = tempfile.mkdtemp(prefix="zarr_server_")
@@ -110,7 +121,7 @@ def main():
         os.symlink(fp, link_path)
 
     if args.name and len(args.name) != len(file_paths):
-        raise SystemExit("Number of --name arguments must match number of .zarr inputs.")
+        raise SystemExit("Number of --name arguments must match number of input files.")
     layer_names = args.name or [os.path.basename(fp) for fp in file_paths]
 
     # 1) Start a CORS-enabled server for the parent directory

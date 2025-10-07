@@ -45,7 +45,7 @@ python visualize_zarr.py </path/to/volume1.zarr /path/to/volume2.zarr ...> [--po
 
 ### Arguments
 
-* `file_path` (**required**) → Path to your `.zarr` directory(ies).
+* `file_path` (**required**) → Path to your `.zarr` directories.
 * `--host` → Host to bind server (default: `127.0.0.1`).
 * `--port` → Port for local server (default: `5000`).
 * `--name` → Custom layer names (default: `.zarr` basename).
