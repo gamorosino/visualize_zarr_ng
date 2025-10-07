@@ -29,7 +29,7 @@ Requires **Python 3.8+**.
 Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/visualize_zarr_ng.git
+git clone https://github.com/gamorosino/visualize_zarr_ng.git
 cd visualize_zarr_ng
 ```
 
@@ -40,7 +40,7 @@ No additional packages are needed.
 ## Usage
 
 ```bash
-python ng_zarr_demo.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--name mylayer]
+python visualize_zarr.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--name mylayer]
 ```
 
 ### Arguments
@@ -57,7 +57,7 @@ python ng_zarr_demo.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--
 ## Example
 
 ```bash
-python ng_zarr_demo.py ./data/brain_volume.zarr --port 8080 --name "BrainVolume"
+python visualize_zarr.py ./data/brain_volume.zarr --port 8080 --name "BrainVolume"
 ```
 
 This will:
