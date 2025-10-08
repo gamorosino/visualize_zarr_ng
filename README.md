@@ -40,15 +40,15 @@ No additional packages are needed.
 ## Usage
 
 ```bash
-python visualize_zarr.py /path/to/volume.zarr [--port 5000] [--host 127.0.0.1] [--name mylayer]
+python visualize_zarr.py </path/to/volume1.zarr /path/to/volume2.zarr ...> [--port 5000] [--host 127.0.0.1] [--name <mylayer1 mylayer2 ...>]
 ```
 
 ### Arguments
 
-* `file_path` (**required**) → Path to your `.zarr` directory.
+* `file_path` (**required**) → Path to your `.zarr` directories.
 * `--host` → Host to bind server (default: `127.0.0.1`).
 * `--port` → Port for local server (default: `5000`).
-* `--name` → Custom layer name (default: `.zarr` basename).
+* `--name` → Custom layer names (default: `.zarr` basename).
 * `--file_type` → File type prefix (default: `zarr`).
 * `--no-open` → Prevent auto-opening Neuroglancer in browser.
 
